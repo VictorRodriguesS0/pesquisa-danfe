@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Dashboard extends Component {
     render() {
@@ -6,12 +6,17 @@ class Dashboard extends Component {
         const nomeCampos = Object.keys(this.props.campos);
 
         let danfesList = "";
-        this.props.danfes.map(danfe => {
+        this.props.danfes.map((danfe) => {
             danfesList += "<tr>";
-            nomeCampos.map(key => {
+            nomeCampos.map((key) => {
                 const campo = campos[key];
                 if (campo.ativo) {
-                    danfesList += "<td campo=" + campo.nome + ">" + danfe[campo.nome] + "</td>";
+                    danfesList +=
+                        "<td campo=" +
+                        campo.nome +
+                        ">" +
+                        danfe[campo.nome] +
+                        "</td>";
                 }
 
                 return null;
@@ -25,18 +30,20 @@ class Dashboard extends Component {
             <table className="table is-bordered is-fullwidth">
                 <thead>
                     <tr>
-                    {
-                        nomeCampos.map(key => {
+                        {nomeCampos.map((key) => {
                             const campo = campos[key];
                             if (campo.ativo) {
-                                return <th key={campo.nome} campo={campo.nome}>{campo.descricao}</th>
+                                return (
+                                    <th key={campo.nome} campo={campo.nome}>
+                                        {campo.descricao}
+                                    </th>
+                                );
                             }
                             return null;
-                        })
-                    }
+                        })}
                     </tr>
                 </thead>
-                <tbody dangerouslySetInnerHTML={{__html: danfesList}}></tbody>
+                <tbody dangerouslySetInnerHTML={{ __html: danfesList }}></tbody>
             </table>
         );
     }

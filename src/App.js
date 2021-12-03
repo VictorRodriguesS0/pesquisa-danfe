@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import Upload from './upload/Upload.js';
-import Dashboard from './dashboard/Dashboard.js';
-import FiltroCampos from './filtros/FiltroCampos.js';
+import React, { Component } from "react";
+import Upload from "./upload/Upload.js";
+import Dashboard from "./dashboard/Dashboard.js";
+import FiltroCampos from "./filtros/FiltroCampos.js";
 
 // css
-import 'bulma/css/bulma.min.css';
+import "bulma/css/bulma.min.css";
 
 class App extends Component {
     constructor(props) {
@@ -13,10 +13,28 @@ class App extends Component {
         this.state = {
             danfes: [],
             campos: {
-                "chNFe": {nome: "chNFe", descricao: "Chave NFe", ativo: true},
-                "emit.xNome": {nome: "emit.xNome", descricao: "Emissor", ativo: false},
-                "dest.xNome": {nome: "dest.xNome", descricao: "Destinatário", ativo: true}
-            }
+                chNFe: { nome: "chNFe", descricao: "Chave NFe", ativo: false },
+                "ide.dhEmi": {
+                    nome: "ide.dhEmi",
+                    descricao: "Data Emissão",
+                    ativo: true,
+                },
+                "emit.xNome": {
+                    nome: "emit.xNome",
+                    descricao: "Emissor",
+                    ativo: false,
+                },
+                "dest.xNome": {
+                    nome: "dest.xNome",
+                    descricao: "Destinatário",
+                    ativo: true,
+                },
+                "ide.nNF": {
+                    nome: "ide.nNF",
+                    descricao: "Número da NFe",
+                    ativo: true,
+                },
+            },
         };
 
         this.addDanfe = this.addDanfe.bind(this);
@@ -35,8 +53,8 @@ class App extends Component {
         }
 
         if (add) {
-            this.setState(prevState => ({
-                danfes: [...prevState.danfes, danfe]
+            this.setState((prevState) => ({
+                danfes: [...prevState.danfes, danfe],
             }));
         }
     }
@@ -44,14 +62,14 @@ class App extends Component {
     changeFiltroCampo(campo) {
         if (typeof this.state.campos[campo] !== "undefined") {
             // shallow copy dos campos
-            let campos = {...this.state.campos};
+            let campos = { ...this.state.campos };
             // shallow copy do campo
-            let c = {...campos[campo]};
+            let c = { ...campos[campo] };
             // altera o valor e coloca no objeto de volta
             c.ativo = !c.ativo;
             campos[campo] = c;
             // altera o state com o campo novo
-            this.setState({campos});
+            this.setState({ campos });
         }
     }
 
@@ -60,9 +78,17 @@ class App extends Component {
             <section className="section">
                 <div className="container">
                     <h1 className="title">Pesquisa em Danfes!</h1>
-                    <Upload addDanfe={this.addDanfe} /><br />
-                    <FiltroCampos campos={this.state.campos} change={this.changeFiltroCampo} />
-                    <Dashboard danfes={this.state.danfes} campos={this.state.campos} />
+                    <Upload addDanfe={this.addDanfe} />
+                    <br />
+                    <FiltroCampos
+                        campos={this.state.campos}
+                        change={this.changeFiltroCampo}
+                    />
+                    <Dashboard
+                        danfes={this.state.danfes}
+                        campos={this.state.campos}
+                        download={this.state.download}
+                    />
                 </div>
             </section>
         );
